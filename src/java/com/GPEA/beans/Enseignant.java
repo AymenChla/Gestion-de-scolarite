@@ -24,6 +24,7 @@ public class Enseignant {
    private java.lang.String departementEnseignant;
    /** @pdOid 831b1495-a25a-490f-b714-1951295e5f55 */
    private java.lang.String photoEnseignant;
+
    private java.lang.String adresseEnseignant;
    private java.lang.String TelEnseignant;
    private java.lang.String SpecialiteEnseignant;
@@ -69,6 +70,7 @@ public class Enseignant {
         this.adresseEnseignant = adresseEnseignant;
     }
    
+
    
    
    public Long getIdEnseignant() {

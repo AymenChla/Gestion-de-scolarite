@@ -3,6 +3,7 @@ package com.GPEA.dao;
 
 import com.GPEA.beans.Enseignant;
 import static com.GPEA.dao.DAOUtilitaire.*;
+
 import java.io.InputStream;
 import java.sql.Blob;
 
@@ -49,6 +50,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
         return enseignant;
     }
     
+
      private static final String SQL_SELECT_PAR_ID = "SELECT * FROM ENSEIGNANT WHERE ID_ENSEIGNANT = ?";
     public Enseignant trouver(Long idEnseignant) throws DAOException {
         
@@ -74,6 +76,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
 
         return enseignant;
     }
+
   
     public static Enseignant map(ResultSet resultSet) throws SQLException {
         
@@ -88,6 +91,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
         enseignant.setTelEnseignant(resultSet.getString("TEL_ENSEIGNANT"));
         enseignant.setSpecialiteEnseignant(resultSet.getString("SPECIALITE_ENSEIGNANT"));
         
+
         return enseignant;
     }
     
@@ -194,6 +198,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
 
         return blob;
     }
+
     
 }
 

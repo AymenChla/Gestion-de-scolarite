@@ -13,8 +13,22 @@
         <servlet-class>com.GPEA.servlets.MessageProfToAdmin</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>Profile</servlet-name>
         <servlet-class>com.GPEA.servlets.Profile</servlet-class>
+    </servlet>
+    <servlet> 
+        <servlet-name>PosterServlet</servlet-name>
+        <servlet-class>com.GPEA.servlets.PosterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FiliereServlet</servlet-name>
+        <servlet-class>com.GPEA.servlets.FiliereServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeconnecterServlet</servlet-name>
+        <servlet-class>com.GPEA.servlets.DeconnecterServlet</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>testBD</servlet-name>
@@ -53,6 +67,7 @@
         <url-pattern>/MessageProfToAdmin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>Profile</servlet-name>
         <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
@@ -65,7 +80,19 @@
         <servlet-name>Image</servlet-name>
         <url-pattern>/ImageServlet</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>PosterServlet</servlet-name>
+        <url-pattern>/Poster</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FiliereServlet</servlet-name>
+        <url-pattern>/Filiere</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeconnecterServlet</servlet-name>
+        <url-pattern>/Deconnecter</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30

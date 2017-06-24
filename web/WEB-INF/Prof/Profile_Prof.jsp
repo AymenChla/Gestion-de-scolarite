@@ -1,5 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="ie8 oldie" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
@@ -7,9 +8,10 @@
 	<meta charset="utf-8">
 	<title>EnsiasHighSchool</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
 	<link rel="stylesheet" href="inc/css/bootstrap.min.css">
 	<link rel="stylesheet" media="all" href="inc/css/style.css">
-	
+
 	<meta charset="UTF-8">
 	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,8 +25,9 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 </head>
 <body>
 
+
     <%@include file="header.jsp" %>
-		
+
 
 <!-- Page Container -->
 <div class="w3-content w3-margin-top" style="max-width:1400px;">
@@ -37,6 +40,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
+
             <img src="ImageServlet" style="width:100%" alt="Avatar" width="500px" height="333px">
           <div class="w3-display-bottomleft w3-container w3-text-black">
               <h2><c:out value="${requestScope.enseignant.getNomEnseignant()}"/></h2>
@@ -57,8 +61,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
           <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Departement</b></p>
           <p><c:out value="${requestScope.enseignant.getDepartementEnseignant()}"/></p>
-         
-         
+
+                 
           <br>
         </div>
       </div><br>
@@ -170,3 +174,4 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 	
 </body>
 </html>
+

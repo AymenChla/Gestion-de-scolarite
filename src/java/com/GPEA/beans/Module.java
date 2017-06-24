@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,10 +18,12 @@ public class Module {
    public Long idEnseignant;
    public Long idSemester;
    
+
    /** @pdOid 8f086821-08c0-4fad-99d5-2e2d168c5c01 */
    public java.lang.String nomModule;
    /** @pdOid 28daaccc-42eb-4f44-b448-31e6dce0f444 */
    public int nombreD_heure;
+
    public Date debutEnseignement;
    public int nombreElement;
 
@@ -86,3 +89,4 @@ public class Module {
         this.debutEnseignement = debutEnseignement;
     }
 }
+

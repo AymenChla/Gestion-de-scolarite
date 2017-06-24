@@ -92,9 +92,10 @@ public class DAOFactory {
     
         return new FiliereDaoImpl( this );
     }
-    
+  
     public ModuleDao getModuleDao()
     {
         return new ModuleDaoImpl(this);
     }
+
 }
