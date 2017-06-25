@@ -21,9 +21,15 @@ public class GestionAnnonces {
         
         this.annonceDao = annonceDao;
     }
-    public ArrayList<Annonce> getAnnonces(){
     
-        return this.annonceDao.afficherAnnonceEnseignant();
+    public int getNbrAnnonces()
+    {
+        return this.annonceDao.getNombreAnnonces();
+    }
+    
+    public ArrayList<Annonce> getAnnonces(int offset,int max){
+    
+        return this.annonceDao.afficherAnnonceEnseignant(offset,max);
         
     }
     public void setAnnonceEnseignantToFilier(Long idEnseignant, String semester,String filiere,String toute, String titreAnnonce, String annonce){

@@ -55,8 +55,8 @@
             
 <nav aria-label="...">
   <ul class="pager">
-    <li><a href="#">Previous</a></li>
-    <li><a href="#">Next</a></li>
+      <li><a href="?page=${requestScope.page-1 > 0 ? requestScope.page-1:1}">Previous</a></li>
+    <li><a href="?page=${requestScope.page+1 <= requestScope.maxPage ? requestScope.page+1 : requestScope.page}">Next</a></li>
   </ul>
 </nav>
             

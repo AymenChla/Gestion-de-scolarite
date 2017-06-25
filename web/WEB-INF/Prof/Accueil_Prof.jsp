@@ -123,6 +123,12 @@
         
         <%@include file = "footer.jsp" %>
 
-	
+        <script type="text/javascript">
+            $('.bxslider').bxSlider({
+                auto: true,
+                autoControls: true,
+                ticker: true
+              });
+        </script>
 </body>
 </html>

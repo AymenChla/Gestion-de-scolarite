@@ -24,22 +24,51 @@ public class AnnonceDaoImpl implements AnnonceDao {
         this.daoFactory = daoFactory;
     }
     
-    private static final String SQL_SELECT_LES_ANNONCES = "SELECT * FROM annonce WHERE Destination = 'enseignant' ORDER BY  DATE_ANNONCE DESC";
-
-    /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
-    @Override
-    public ArrayList<Annonce> afficherAnnonceEnseignant() throws DAOException {
-        
+    private static final String SQL_SELECT_NOMBRE_ANNONCE_ENSEIGNANT = "SELECT count(*) nbr FROM annonce WHERE Destination = 'enseignant'"; 
+     @Override
+    public int getNombreAnnonces()throws DAOException
+    {
         Connection connexion = null;
         ResultSet resultSet = null;
-        Statement statement = null;
-        ArrayList<Annonce> annonce = new ArrayList<Annonce>();
+        Statement statement= null;
+        
+        int nbrAnnonces = 0;
 
         try {
             /* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
             statement = connexion.createStatement();
-            resultSet =statement.executeQuery(SQL_SELECT_LES_ANNONCES);
+            resultSet = statement.executeQuery(SQL_SELECT_NOMBRE_ANNONCE_ENSEIGNANT);
+            
+            if(resultSet.next()) {
+                nbrAnnonces = resultSet.getInt("nbr");
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet,statement, connexion);
+        }
+
+        return nbrAnnonces;
+    }
+    
+    
+    private static final String SQL_SELECT_LES_ANNONCES = "SELECT * FROM annonce WHERE Destination = 'enseignant' ORDER BY  DATE_ANNONCE DESC limit ?,?";
+
+    /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
+    @Override
+    public ArrayList<Annonce> afficherAnnonceEnseignant(int offset,int max) throws DAOException {
+        
+        Connection connexion = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<Annonce> annonce = new ArrayList<Annonce>();
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_LES_ANNONCES, false, offset, max);
+            resultSet =preparedStatement.executeQuery();
             /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
             while(resultSet.next()) {
                 annonce.add(map(resultSet));
@@ -47,7 +76,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
         } catch (SQLException e) {
             throw new DAOException(e);
         } finally {
-            fermeturesSilencieuses(resultSet,statement, connexion);
+            fermeturesSilencieuses(preparedStatement, connexion);
         }
 
         return annonce;
