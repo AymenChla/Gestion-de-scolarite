@@ -53,7 +53,7 @@ public class Authentification extends HttpServlet {
              if(session.getAttribute("sessionProf") != null)
             {
                 GestionAnnonces gestionAnnonces = new GestionAnnonces(annonceDao);
-                ArrayList<Annonce> annonces = gestionAnnonces.getAnnonces();
+                ArrayList<Annonce> annonces = gestionAnnonces.getAnnonces(0,2);
                 request.setAttribute("annonces",annonces);
                 
                 

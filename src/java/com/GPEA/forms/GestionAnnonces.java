@@ -27,6 +27,11 @@ public class GestionAnnonces {
         return this.annonceDao.getNombreAnnonces();
     }
     
+    public int getNbrPostes(Long idEnseignant)
+    {
+        return this.annonceDao.getNombrePostes(idEnseignant);
+    }
+    
     public ArrayList<Annonce> getAnnonces(int offset,int max){
     
         return this.annonceDao.afficherAnnonceEnseignant(offset,max);
@@ -38,15 +43,15 @@ public class GestionAnnonces {
     
     }
     
-    public ArrayList<Annonce> getAnnoncesPosterProf(Long idEnseignant){
+    public ArrayList<Annonce> getAnnoncesPosterProf(Long idEnseignant, int offset, int maxPostes){
         
-        return this.annonceDao.afficherAnnoncePoster(idEnseignant);
+        return this.annonceDao.afficherAnnoncePoster(idEnseignant, offset, maxPostes);
     
     }
     
-    public ArrayList<Filiere>  getFilierePosterProf(Long idEnseignant){
+    public ArrayList<Filiere>  getFilierePosterProf(Long idEnseignant,int offset, int maxPostes){
     
-        return this.annonceDao.afficherFilierePoster(idEnseignant);
+        return this.annonceDao.afficherFilierePoster(idEnseignant, offset,  maxPostes);
     }
     
 }

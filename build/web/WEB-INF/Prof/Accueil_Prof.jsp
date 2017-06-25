@@ -89,7 +89,7 @@
 		<div class="container">
                     <h2>dernières annonces</h2>
                     
-                        <c:forEach items="${requestScope.annonces}" var="annonce" begin="0" end="1" >
+                        <c:forEach items="${requestScope.annonces}" var="annonce">
 			<article>
 				<div class="pic"><img src="inc/images/1.png" alt=""></div>
 				<div class="info">

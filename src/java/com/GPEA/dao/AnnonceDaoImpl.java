@@ -52,7 +52,33 @@ public class AnnonceDaoImpl implements AnnonceDao {
         return nbrAnnonces;
     }
     
-    
+    private static final String SQL_SELECT_NOMBRE_POSTE_ENSEIGNANT = "SELECT count(*) nbr FROM annonce WHERE Destination = 'etudiant' and id_enseignant=?"; 
+    @Override
+    public int getNombrePostes(Long idEnseignant)throws DAOException
+    {
+        Connection connexion = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement= null;
+        
+        int nbrPostes = 0;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_NOMBRE_POSTE_ENSEIGNANT, false, idEnseignant);
+            resultSet = preparedStatement.executeQuery();
+          
+            if(resultSet.next()) {
+                nbrPostes = resultSet.getInt("nbr");
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet,preparedStatement, connexion);
+        }
+
+        return nbrPostes;
+    }
     private static final String SQL_SELECT_LES_ANNONCES = "SELECT * FROM annonce WHERE Destination = 'enseignant' ORDER BY  DATE_ANNONCE DESC limit ?,?";
 
     /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
@@ -168,12 +194,12 @@ public class AnnonceDaoImpl implements AnnonceDao {
     
         
     }
-  private static final String SQL_AFFICHER_ANNONCES_POSTER = "SELECT * FROM ANNONCE WHERE ID_ENSEIGNANT = ? ORDER BY DATE_ANNONCE DESC";
+  private static final String SQL_AFFICHER_ANNONCES_POSTER = "SELECT * FROM ANNONCE WHERE ID_ENSEIGNANT = ? ORDER BY DATE_ANNONCE DESC limit ?,?";
   private static final String SQL_AFFICHRE_FILIERE_POSTER = "SELECT ID_SEMESTER FROM PUBLIER WHERE ID_ANNONCE=?";
   private static final String SQL_AFFICHER_FILIERE = "SELECT * FROM FILIERE WHERE ID_SEMESTER = ?";
   
      @Override
-    public ArrayList<Annonce> afficherAnnoncePoster(Long idEnseignant)throws DAOException {
+    public ArrayList<Annonce> afficherAnnoncePoster(Long idEnseignant,int offset,int maxPostes)throws DAOException {
         
         
         Connection connexion = null;
@@ -190,7 +216,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
         try {
             /* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee(connexion, SQL_AFFICHER_ANNONCES_POSTER, false,idEnseignant);
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_AFFICHER_ANNONCES_POSTER, false,idEnseignant,offset,maxPostes);
             resultSet = preparedStatement.executeQuery();
             
             /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
@@ -213,7 +239,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
     }
 
     @Override
-    public ArrayList<Filiere> afficherFilierePoster(Long idEnseignant) throws DAOException {
+    public ArrayList<Filiere> afficherFilierePoster(Long idEnseignant,int offset, int maxPostes) throws DAOException {
         
         Connection connexion = null;
         ResultSet resultSet = null,resultSetNew=null,resultSetNew1=null;
@@ -227,7 +253,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
         try {
             /* Récupération d'une connexion depuis la Factory */
             connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee(connexion, SQL_AFFICHER_ANNONCES_POSTER, false,idEnseignant);
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_AFFICHER_ANNONCES_POSTER, false,idEnseignant, offset,  maxPostes);
             resultSet = preparedStatement.executeQuery();
             
             /* Parcours de la ligne de données de l'éventuel ResulSet retourné */

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/asus%20pro/Documents/NetBeansProjects/GPEAProfile/src/java/com/GPEA/servlets/AnnonceServlet.java</file>
+            <file>file:/C:/Users/asus%20pro/Documents/NetBeansProjects/GPEAProfile/src/java/com/GPEA/dao/AnnonceDaoImpl.java</file>
+            <file>file:/C:/Users/asus%20pro/Documents/NetBeansProjects/GPEAProfile/web/WEB-INF/Prof/Annonce_Prof.jsp</file>
+            <file>file:/C:/Users/asus%20pro/Documents/NetBeansProjects/GPEAProfile/src/java/com/GPEA/forms/GestionAnnonces.java</file>
+            <file>file:/C:/Users/asus%20pro/Documents/NetBeansProjects/GPEAProfile/src/java/com/GPEA/servlets/PosterServlet.java</file>
+            <file>file:/C:/Users/asus%20pro/Documents/NetBeansProjects/GPEAProfile/web/WEB-INF/Prof/Poster_Prof.jsp</file>
+            <file>file:/C:/Users/asus%20pro/Documents/NetBeansProjects/GPEAProfile/src/java/com/GPEA/beans/Annonce.java</file>
+        </group>
+    </open-files>
+</project-private>

@@ -22,7 +22,7 @@ public class index extends HttpServlet {
            
             if(session.getAttribute("sessionProf") != null)
             {
-                response.sendRedirect("http://localhost:8080/GPEA/home");
+                response.sendRedirect("home");
             }
             else if(session.getAttribute("sessionEtudiant") != null)
             {
