@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class EnseignantDaoImpl implements EnseignantDao {
@@ -86,7 +88,7 @@ public class EnseignantDaoImpl implements EnseignantDao {
         enseignant.setPrenomEnseignant(resultSet.getString("PRENOM_ENSEIGNANT"));
         enseignant.setEmailEnseignant(resultSet.getString("EMAIL_ENSEIGNANT"));
         enseignant.setDepartementEnseignant(resultSet.getString("DEPARTEMENT_ENSEIGNANT"));
-        enseignant.setPhotoEnseignant(resultSet.getString("PHOTO_ENSEIGNANT"));
+        enseignant.setPhotoEnseignant(resultSet.getBinaryStream("PHOTO_ENSEIGNANT"));
         enseignant.setAdresseEnseignant(resultSet.getString("ADRESSE_ENSEIGNANT"));
         enseignant.setTelEnseignant(resultSet.getString("TEL_ENSEIGNANT"));
         enseignant.setSpecialiteEnseignant(resultSet.getString("SPECIALITE_ENSEIGNANT"));
@@ -199,7 +201,52 @@ public class EnseignantDaoImpl implements EnseignantDao {
         return blob;
     }
 
+    public static final String SQL_SELECT_ALL_ENSEIGNANT = "select * from enseignant";
+     @Override
+    public ArrayList<Enseignant> getAllEnseignant() throws DAOException
+    {
+        Connection connexion = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<Enseignant> enseignants = new ArrayList<Enseignant>();
+        
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultSet = statement.executeQuery(SQL_SELECT_ALL_ENSEIGNANT);
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            while (resultSet.next()) {
+                enseignants.add(map(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet, statement, connexion);
+        }
+
+        return enseignants;
+    }
     
+    public static final String SQL_INSERT_ENSEIGNANT = "insert into enseignant( `NOM_ENSEIGNANT`, `PRENOM_ENSEIGNANT`, `DATE_DE_NAISSANCE`, `EMAIL_ENSEIGNANT`, `MDP_ENSEIGNANT`, `DEPARTEMENT_ENSEIGNANT`, `TEL_ENSEIGNANT`, `ADRESSE_ENSEIGNANT`, `SPECIALITE_ENSEIGNANT`, `PHOTO_ENSEIGNANT`)  values(?,?,?,?,?,?,?,?,?,?)";
+    public void inserer(Enseignant e) throws DAOException
+    {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_ENSEIGNANT, false,e.getNomEnseignant(),e.getPrenomEnseignant(),e.getDateDeNaissance(),e.getEmailEnseignant(),e.getMdpEnseignat(),e.getDepartementEnseignant(),e.getTelEnseignant(),e.getAdresseEnseignant(),e.getSpecialiteEnseignant(),e.getPhotoEnseignant());
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException ex) {
+            throw new DAOException(ex);
+        } finally {
+            fermeturesSilencieuses(preparedStatement, connexion);
+        }
+
+    }
 }
 
 

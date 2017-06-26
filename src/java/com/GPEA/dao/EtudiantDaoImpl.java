@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 public class EtudiantDaoImpl implements EtudiantDao {
     
@@ -46,38 +48,7 @@ public class EtudiantDaoImpl implements EtudiantDao {
     }
     
     
-    private static final String SQL_INSERT = "INSERT INTO etudiant (CNE,ID_COMPTE,ID_FILIERE,NOM_ETUDIANT,PRENOM_ETUDIANT,DATE_DE_NAISSANCE, EMAIl_ETUDIANT, MDP_ETUDIANT, CODE_APOGE) VALUES (?, ?, ?,?,?,?,?,?,?)";
-
-    /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
-    @Override
-    public void creer(Etudiant etudiant) throws DAOException {
-        Connection connexion = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet valeursAutoGenerees = null;
-
-        try {
-            /* Récupération d'une connexion depuis la Factory */
-            connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT, true,etudiant.getCne(),etudiant.getIdFiliere(),etudiant.getNomEtudiant(),etudiant.getPrenomEtudiant() ,etudiant.getDateDeNaissance(),etudiant.getEmailEtudiant(), etudiant.getMdpEtudiant(),etudiant.getCodeApoge());
-            int statut = preparedStatement.executeUpdate();
-            /* Analyse du statut retourné par la requête d'insertion */
-            if (statut == 0) {
-                throw new DAOException("Échec de la création de l'utilisateur, aucune ligne ajoutée dans la table.");
-            }
-            /* Récupération de l'id auto-généré par la requête d'insertion */
-            valeursAutoGenerees = preparedStatement.getGeneratedKeys();
-            if (valeursAutoGenerees.next()) {
-                /* Puis initialisation de la propriété id du bean Utilisateur avec sa valeur */
-                //etudiant.set(valeursAutoGenerees.getLong(1));
-            } else {
-                throw new DAOException("Échec de la création de l'utilisateur en base, aucun ID auto-généré retourné.");
-            }
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        } finally {
-            fermeturesSilencieuses(valeursAutoGenerees, preparedStatement, connexion);
-        }
-    }
+    
     
        /*
  * Simple méthode utilitaire permettant de faire la correspondance (le
@@ -90,6 +61,13 @@ public class EtudiantDaoImpl implements EtudiantDao {
         etutiant.setCne(resultSet.getLong("CNE"));
         etutiant.setCodeApoge(resultSet.getLong("CODE_APOGE"));
         etutiant.setNomEtudiant(resultSet.getString("NOM_ETUDIANT"));
+        etutiant.setPrenomEtudiant(resultSet.getString("PRENOM_ETUDIANT"));
+        etutiant.setEmailEtudiant(resultSet.getString("EMAIL_ETUDIANT"));
+        etutiant.setTelEtudiant(resultSet.getString("TEL_ETUDIANT"));
+        etutiant.setAdresseEtudiant(resultSet.getString("ADRESSE_ETUDIANT"));
+        etutiant.setPhotoEtudiant(resultSet.getBinaryStream("PHOTO_ETUDIANT"));
+        etutiant.setDateDeNaissance(resultSet.getDate("DATE_DE_NAISSANCE"));
+        etutiant.setIdSemester(resultSet.getLong("ID_SEMESTER"));
         
         return etutiant;
     }
@@ -121,5 +99,52 @@ public class EtudiantDaoImpl implements EtudiantDao {
         }
 
         return etudiant;
+    }
+    
+    public static final String SQL_SELECT_ALL_ETUDIANT = "select * from etudiant";
+    @Override
+    public ArrayList<Etudiant> getAllEtudiant() throws DAOException
+    {
+        Connection connexion = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        ArrayList<Etudiant> etudiants = new ArrayList<Etudiant>();
+        
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            statement = connexion.createStatement();
+            resultSet = statement.executeQuery(SQL_SELECT_ALL_ETUDIANT);
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            while (resultSet.next()) {
+                etudiants.add(map(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet, statement, connexion);
+        }
+
+        return etudiants;
+    }
+    
+    public static final String SQL_INSERT_Etudiant = "insert into etudiant( `CNE`, `ID_SEMESTER`, `NOM_ETUDIANT`, `PRENOM_ETUDIANT`, `DATE_DE_NAISSANCE`, `EMAIL_ETUDIANT`, `MDP_ETUDIANT`, `CODE_APOGE`,`TEL_ETUDIANT`, `PHOTO_ETUDIANT` ,`ADRESSE_ETUDIANT`)  values(?,?,?,?,?,?,?,?,?,?,?)";
+    public void inserer(Etudiant e) throws DAOException
+    {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_Etudiant, false,e.getCne(),e.getIdSemester(),e.getNomEtudiant(),e.getPrenomEtudiant(),e.getDateDeNaissance(),e.getEmailEtudiant(),e.getMdpEtudiant(),e.getCodeApoge(),e.getTelEtudiant(),e.getPhotoEtudiant(),e.getAdresseEtudiant());
+            preparedStatement.executeUpdate();
+            
+        } catch (SQLException ex) {
+            throw new DAOException(ex);
+        } finally {
+            fermeturesSilencieuses(preparedStatement, connexion);
+        }
+
     }
 }

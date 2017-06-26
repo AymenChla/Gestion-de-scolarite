@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>testBD</servlet-name>
-        <servlet-class>com.GPEA.servlets.testBD</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>indexAdministration</servlet-name>
-        <servlet-class>com.GPEA.servlets.administration.indexAdministration</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MessageProfToAdmin</servlet-name>
         <servlet-class>com.GPEA.servlets.MessageProfToAdmin</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>Profile</servlet-name>
         <servlet-class>com.GPEA.servlets.Profile</servlet-class>
     </servlet>
-    <servlet> 
+    <servlet>
         <servlet-name>PosterServlet</servlet-name>
         <servlet-class>com.GPEA.servlets.PosterServlet</servlet-class>
     </servlet>
@@ -28,15 +19,30 @@
     <servlet>
         <servlet-name>DeconnecterServlet</servlet-name>
         <servlet-class>com.GPEA.servlets.DeconnecterServlet</servlet-class>
-
     </servlet>
-    <servlet-mapping>
-        <servlet-name>testBD</servlet-name>
-        <url-pattern>/testBD</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>IndexAdmin</servlet-name>
+        <servlet-class>com.GPEA.servlets.IndexAdmin</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>index</servlet-name>
         <servlet-class>com.GPEA.servlets.index</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthentificationAdmin</servlet-name>
+        <servlet-class>com.GPEA.servlets.AuthentificationAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutAdmin</servlet-name>
+        <servlet-class>com.GPEA.servlets.LogoutAdmin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>gestionEnseignantServlet</servlet-name>
+        <servlet-class>com.GPEA.servlets.gestionEnseignantServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestionEtudiantServlet</servlet-name>
+        <servlet-class>com.GPEA.servlets.GestionEtudiantServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>index</servlet-name>
@@ -49,10 +55,6 @@
     <servlet-mapping>
         <servlet-name>Authentification</servlet-name>
         <url-pattern>/home</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>indexAdministration</servlet-name>
-        <url-pattern>/indexAdministration</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Annonce</servlet-name>
@@ -67,11 +69,9 @@
         <url-pattern>/MessageProfToAdmin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>Profile</servlet-name>
         <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>Image</servlet-name>
         <servlet-class>com.GPEA.servlets.ImageServlet</servlet-class>
@@ -92,7 +92,26 @@
         <servlet-name>DeconnecterServlet</servlet-name>
         <url-pattern>/Deconnecter</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>IndexAdmin</servlet-name>
+        <url-pattern>/LoginAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthentificationAdmin</servlet-name>
+        <url-pattern>/HomeAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutAdmin</servlet-name>
+        <url-pattern>/LogoutAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>gestionEnseignantServlet</servlet-name>
+        <url-pattern>/Enseignant</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionEtudiantServlet</servlet-name>
+        <url-pattern>/Etudiant</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
