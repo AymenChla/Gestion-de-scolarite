@@ -64,5 +64,30 @@ public class FiliereDaoImpl implements FiliereDao {
         return filiere;
     }
 
+    private static final String SQL_SELECT_FILIERE_ETUDIANT = "SELECT * FROM Filiere where ID_SEMESTER = ?";
+    public Filiere getFiliereEtudiant(Long idSemester) throws DAOException
+    {
+        Connection connexion = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+        Filiere filiere = null;
 
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_FILIERE_ETUDIANT, false, idSemester);
+            resultSet =preparedStatement.executeQuery();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            if(resultSet.next()) {
+                filiere = mapFiliere(resultSet);
+            }
+            
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet,preparedStatement, connexion);
+        }
+
+        return filiere;
+    }
 }

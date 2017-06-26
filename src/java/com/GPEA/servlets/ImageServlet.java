@@ -5,6 +5,7 @@
  */
 package com.GPEA.servlets;
 
+import com.GPEA.dao.AdministrationDao;
 import com.GPEA.dao.DAOFactory;
 import com.GPEA.dao.EnseignantDao;
 import static com.GPEA.servlets.Authentification.CONF_DAO_FACTORY;
@@ -29,10 +30,12 @@ import javax.servlet.http.HttpSession;
 public class ImageServlet extends HttpServlet {
 
      private EnseignantDao   enseignantDao;
+     private AdministrationDao administrationDao;
      
      public void init() throws ServletException {
         /* Récupération d'une instance de notre DAO Utilisateur */
         this.enseignantDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getEnseignantDao();
+        this.administrationDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getAdministrationDao();
        
     }
 
@@ -42,32 +45,65 @@ public class ImageServlet extends HttpServlet {
             
             HttpSession session = request.getSession();
             
-            Long id = (Long) session.getAttribute("sessionProf");
-            if(id != null)
+            if(request.getParameter("role").equals("enseignant" ))
             {
-                
-                 Blob blob = this.enseignantDao.getImageBlob(id);
-                 if(blob != null)
-                 {
-                    try {
-                        byte[] bytes = blob.getBytes(1, (int)blob.length());
-                        OutputStream output = response.getOutputStream();
-                        response.setContentType("image/jpg");
-                        output.write(bytes);
-                        output.flush();
-                        output.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(ImageServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Long id = (Long) session.getAttribute("sessionProf");
+                if(id != null)
+                {
+
+                     Blob blob = this.enseignantDao.getImageBlob(id);
+                     if(blob != null)
+                     {
+                        try {
+                            byte[] bytes = blob.getBytes(1, (int)blob.length());
+                            OutputStream output = response.getOutputStream();
+                            response.setContentType("image/jpg");
+                            output.write(bytes);
+                            output.flush();
+                            output.close();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(ImageServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
-                 }
-                 else
-                 {
-                     //put here an unknown image
-                 }
+                    else
+                    {
+                             //put here an unknown image
+                    }
                 
 
+                }
+                else this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
             }
-            else this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            else if(request.getParameter("role").equals("admin"))
+            {
+                Long id = (Long) session.getAttribute("sessionAdmin");
+                if(id != null)
+                {
+
+                     Blob blob = this.administrationDao.getImageBlob(id);
+                     if(blob != null)
+                     {
+                        try {
+                            byte[] bytes = blob.getBytes(1, (int)blob.length());
+                            OutputStream output = response.getOutputStream();
+                            response.setContentType("image/jpg");
+                            output.write(bytes);
+                            output.flush();
+                            output.close();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(ImageServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else
+                    {
+                             //put here an unknown image
+                    }
+                
+
+                }
+                else this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            }
+            
     }
 
     

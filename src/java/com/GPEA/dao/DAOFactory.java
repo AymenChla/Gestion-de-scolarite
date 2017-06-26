@@ -97,5 +97,10 @@ public class DAOFactory {
     {
         return new ModuleDaoImpl(this);
     }
+    public AdministrationDao getAdministrationDao()
+    {
+        return new AdministrationDaoImpl(this);
+    }
+    
 
 }

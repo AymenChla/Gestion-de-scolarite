@@ -12,7 +12,7 @@ import com.GPEA.dao.AnnonceDao;
 import com.GPEA.dao.DAOFactory;
 import com.GPEA.dao.EtudiantDao;
 import  com.GPEA.dao.EnseignantDao;
-import com.GPEA.forms.AuthentificationForm;
+import com.GPEA.forms.GestionAuthentification;
 import com.GPEA.forms.GestionAnnonces;
 import static com.GPEA.servlets.index.VUE_Enseignant;
 
@@ -77,7 +77,7 @@ public class Authentification extends HttpServlet {
             String password = request.getParameter("password");
             
             
-            AuthentificationForm authentificationForm = new AuthentificationForm(etudiantDao);
+            GestionAuthentification authentificationForm = new GestionAuthentification(etudiantDao);
             Etudiant etudiant = authentificationForm.AuthentificateEtudiant(email,password);              
             
             if(etudiant != null){
@@ -88,7 +88,7 @@ public class Authentification extends HttpServlet {
 
             
 
-           authentificationForm = new AuthentificationForm(enseignantDao);
+           authentificationForm = new GestionAuthentification(enseignantDao);
            Enseignant enseignant = authentificationForm.AuthentificateEnseignant(email,password);
            
             if(enseignant != null){

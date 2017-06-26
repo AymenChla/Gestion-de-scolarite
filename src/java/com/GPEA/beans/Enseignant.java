@@ -2,6 +2,7 @@ package com.GPEA.beans;
 
 
 
+import java.io.InputStream;
 import java.util.*;
 
 /** @pdOid 24780a32-15be-4d7a-94aa-41a938002147 */
@@ -23,7 +24,7 @@ public class Enseignant {
    /** @pdOid 78b0db24-8694-4773-8ab4-70d3f776d9f0 */
    private java.lang.String departementEnseignant;
    /** @pdOid 831b1495-a25a-490f-b714-1951295e5f55 */
-   private java.lang.String photoEnseignant;
+   private InputStream photoEnseignant;
 
    private java.lang.String adresseEnseignant;
    private java.lang.String TelEnseignant;
@@ -45,6 +46,20 @@ public class Enseignant {
        this.adresseEnseignant = adresse;
    }
    
+    public Enseignant(String nom,String prenom,String email,String password,String tel,Date date,String adresse,String specialites , String departement, InputStream photo)
+   {
+       this.nomEnseignant = nom;
+       this.prenomEnseignant = prenom;
+       this.TelEnseignant = tel;
+       this.emailEnseignant = email;
+       this.SpecialiteEnseignant = specialites;
+       this.dateDeNaissance = date;
+       this.departementEnseignant = departement;
+       this.adresseEnseignant = adresse;
+       this.photoEnseignant = photo;
+       this.mdpEnseignat = password;
+   }
+    
     public String getSpecialiteEnseignant() {
         return SpecialiteEnseignant;
     }
@@ -129,12 +144,12 @@ public class Enseignant {
         this.departementEnseignant = departementEnseignant;
     }
 
-    public String getPhotoEnseignant() {
+    public InputStream getPhotoEnseignant() {
         return photoEnseignant;
     }
 
     /** @pdOid de91cc7c-66d7-4bae-bb7a-54d3b5ae5e08 */
-    public void setPhotoEnseignant(String photoEnseignant) {
+    public void setPhotoEnseignant(InputStream photoEnseignant) {
         this.photoEnseignant = photoEnseignant;
     }
 

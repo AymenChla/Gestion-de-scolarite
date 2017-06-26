@@ -17,12 +17,8 @@ public class Administration {
    public java.lang.String mdpAdmin;
    /** @pdOid 25a49ba9-58d2-4d18-977b-c68f54cb684c */
    public java.lang.String photoAdmin;
-    
-    private EtudiantDao adminDAO;
 
-    public Administration(EtudiantDao adminDAO) {
-        this.adminDAO = adminDAO;
-    }
+
     
     public Long getIdAdmin() {
         return idAdmin;

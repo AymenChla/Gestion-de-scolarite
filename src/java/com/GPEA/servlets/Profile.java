@@ -9,7 +9,7 @@ import com.GPEA.beans.Module;
 import com.GPEA.beans.Enseignant;
 import com.GPEA.dao.DAOFactory;
 import com.GPEA.dao.EnseignantDao;
-import com.GPEA.forms.GestionProfileEnseignant;
+import com.GPEA.forms.GestionEnseignant;
 import static com.GPEA.servlets.Authentification.CONF_DAO_FACTORY;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class Profile extends HttpServlet {
        Long idEnseignant = (Long)session.getAttribute("sessionProf");
        if(idEnseignant != null){
            
-           GestionProfileEnseignant gestionProfileEnseignant = new GestionProfileEnseignant(enseignantDao,moduleDao);
+           GestionEnseignant gestionProfileEnseignant = new GestionEnseignant(enseignantDao,moduleDao);
            //recuperer l'enseignant
            Enseignant enseignant = gestionProfileEnseignant.getEnseignant(idEnseignant);
            
