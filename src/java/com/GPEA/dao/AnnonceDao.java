@@ -13,6 +13,8 @@ public interface AnnonceDao{
         public void posterAnnonceEnseignantToFiliere(Long idEnseignant, String semester,String filiere,String toute, String titreAnnonce, String annonce);
         public ArrayList<Annonce> afficherAnnoncePoster(Long idEnseignant,int offset,int maxPostes)throws DAOException;
         public ArrayList<Filiere> afficherFilierePoster(Long idEnseignant, int offset, int maxPostes)throws DAOException;
-        public int getNombreAnnonces()throws DAOException;
+        public int getNombreAnnoncesEnseignants()throws DAOException;
         public int getNombrePostes(Long idEnseignant)throws DAOException;
+        public ArrayList<Annonce> getAnnoncesAdmintoProf(Long idAdmin) throws DAOException;
+        public ArrayList<Annonce> getAnnoncesAdmintoEtudiants(Long idAdmin) throws DAOException;
 }

@@ -72,7 +72,7 @@ public class EtudiantDaoImpl implements EtudiantDao {
         return etutiant;
     }
     
-    private static final String SQL_SELECT_PAR_EMAIL_PASSWORD = "SELECT cne, id_filiere, nom_etudiant, prenom_etudiant, date_de_naissance,email_etudiant,mdp_etudiant,code_apoge,photo_etudiant FROM etudiant WHERE email_etudiant = ? and mdp_etudiant = ?";
+    private static final String SQL_SELECT_PAR_EMAIL_PASSWORD = "SELECT cne, id_semester, nom_etudiant, prenom_etudiant, date_de_naissance,email_etudiant,mdp_etudiant,code_apoge,photo_etudiant FROM etudiant WHERE email_etudiant = ? and mdp_etudiant = ?";
     
     
      @Override
