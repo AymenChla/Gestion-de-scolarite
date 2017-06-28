@@ -50,6 +50,34 @@ public class MessageDaoImpl implements MessageDao{
         
  
     }
+
+    @Override
+    public void envoyerMsgEtudToAdmin(Long idCompteSource, String msg, String objetMsg){
+        
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_INSERT_MSG, false, idCompteSource, objetMsg , msg);
+            preparedStatement.executeUpdate();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+           
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
+        }
+
+        
+
+        
+ 
+    }
+    
+    
     
     
     

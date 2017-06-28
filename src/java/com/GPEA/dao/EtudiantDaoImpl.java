@@ -17,44 +17,8 @@ public class EtudiantDaoImpl implements EtudiantDao {
     EtudiantDaoImpl( DAOFactory daoFactory ) {
         this.daoFactory = daoFactory;
     }
-    
-    private static final String SQL_SELECT_PAR_EMAIL = "SELECT id, email, nom, mot_de_passe, date_inscription FROM Utilisateur WHERE email = ?";
 
-    /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
-    @Override
-    public Etudiant trouver(String email) throws DAOException {
-        
-        Connection connexion = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        Etudiant etudiant = null;
-
-        try {
-            /* Récupération d'une connexion depuis la Factory */
-            connexion = daoFactory.getConnection();
-            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_PAR_EMAIL, false, email);
-            resultSet = preparedStatement.executeQuery();
-            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
-            if (resultSet.next()) {
-                etudiant = map(resultSet);
-            }
-        } catch (SQLException e) {
-            throw new DAOException(e);
-        } finally {
-            fermeturesSilencieuses(resultSet, preparedStatement, connexion);
-        }
-
-        return etudiant;
-    }
     
-    
-    
-    
-       /*
- * Simple méthode utilitaire permettant de faire la correspondance (le
- * mapping) entre une ligne issue de la table des utilisateurs (un
- * ResultSet) et un bean Utilisateur.
-     */
     public static Etudiant map(ResultSet resultSet) throws SQLException {
         
         Etudiant etutiant = new Etudiant();
@@ -72,7 +36,7 @@ public class EtudiantDaoImpl implements EtudiantDao {
         return etutiant;
     }
     
-    private static final String SQL_SELECT_PAR_EMAIL_PASSWORD = "SELECT cne, id_filiere, nom_etudiant, prenom_etudiant, date_de_naissance,email_etudiant,mdp_etudiant,code_apoge,photo_etudiant FROM etudiant WHERE email_etudiant = ? and mdp_etudiant = ?";
+    private static final String SQL_SELECT_PAR_EMAIL_PASSWORD = "SELECT CNE, ID_SEMESTER, NOM_ETUDIANT, PRENOM_ETUDIANT, DATE_DE_NAISSANCE,EMAIL_ETUDIANT,MDP_ETUDIANT,CODE_APOGE,TEL_ETUDIANT,PHOTO_ETUDIANT,ADRESSE_ETUDIANT FROM etudiant WHERE email_etudiant = ? and mdp_etudiant = ?";
     
     
      @Override

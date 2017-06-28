@@ -6,6 +6,7 @@
 package com.GPEA.forms;
 
 import com.GPEA.dao.EnseignantDao;
+import com.GPEA.dao.EtudiantDao;
 import com.GPEA.dao.MessageDao;
 
 /**
@@ -14,6 +15,7 @@ import com.GPEA.dao.MessageDao;
  */
 public class GestionMessage {
     
+    private EtudiantDao etudiantDao;
     private MessageDao messageDao;
     private EnseignantDao enseignantDao;
     
@@ -21,13 +23,18 @@ public class GestionMessage {
         this.enseignantDao = enseignantDao;
         this.messageDao = messageDao;
     }
+     public GestionMessage(MessageDao messageDao ,EtudiantDao etudiantDao){
+         
+         this.etudiantDao = etudiantDao;
+         this.messageDao = messageDao;
+     }
      
     
      public void envoyerMessageProfToAdmin(Long idEnseignant,String msg ,String objetMessage){
          
         
-         Long idCompte = this.enseignantDao.getIdCompte(idEnseignant);
-         this.messageDao.envoyerMsgProfToAdmin(idCompte, msg, objetMessage);
+         
+         this.messageDao.envoyerMsgProfToAdmin(idEnseignant, msg, objetMessage);
  
      }
 }

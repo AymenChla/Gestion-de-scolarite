@@ -1,9 +1,12 @@
 
 package com.GPEA.servlets;
 
+import com.GPEA.dao.CompteDao;
 import com.GPEA.dao.DAOFactory;
 import com.GPEA.dao.EnseignantDao;
+import com.GPEA.dao.EtudiantDao;
 import com.GPEA.dao.MessageDao;
+import com.GPEA.forms.GestionCompte;
 import com.GPEA.forms.GestionMessage;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,15 +19,19 @@ import javax.servlet.http.HttpSession;
 
 public class MessageProfToAdmin extends HttpServlet {
      public static final String CONF_DAO_FACTORY = "daofactory";
-
-    
+     
+    private CompteDao compteDao;
+    private EtudiantDao etudiantDao;
     private MessageDao messageDao;
     private EnseignantDao enseignantDao;
     
     public void init() throws ServletException {
         /* Récupération d'une instance de notre DAO Utilisateur */
-           this.enseignantDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getEnseignantDao();
+        
+          this.etudiantDao =( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getEtudiantDao();
+          this.enseignantDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getEnseignantDao();
           this.messageDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getMessageDao();
+          this.compteDao =( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getCompteDao();
     }
 
  
@@ -45,17 +52,30 @@ public class MessageProfToAdmin extends HttpServlet {
         
        HttpSession session = request.getSession();
        if(session.getAttribute("sessionProf") != null){
-           
+           Long idCompteProf =null;
             GestionMessage gestionMessage = new GestionMessage(messageDao, enseignantDao);
-            gestionMessage.envoyerMessageProfToAdmin((Long)session.getAttribute("sessionProf"), request.getParameter("msg"),request.getParameter("objet"));
+            GestionCompte gestionCompte = new GestionCompte(compteDao);
+            idCompteProf = (Long)gestionCompte.getIdCompteEnseignant((Long)session.getAttribute("sessionProf"));
+            gestionMessage.envoyerMessageProfToAdmin(idCompteProf, request.getParameter("msg"),request.getParameter("objet"));
             response.sendRedirect("home");
            
            
        
        
        
+       }else{
+       
+       if(session.getAttribute("sessionEtudiant") != null){
+           Long idCompteEtud = null;
+             GestionMessage gestionMessage = new GestionMessage(messageDao,etudiantDao);
+              GestionCompte gestionCompte = new GestionCompte(compteDao);
+            idCompteEtud = (Long)gestionCompte.getIdCompteEtudiant((Long)session.getAttribute("sessionEtudiant"));
+            gestionMessage.envoyerMessageProfToAdmin(idCompteEtud, request.getParameter("msg"),request.getParameter("objet"));
+            response.sendRedirect("home");
+       
+       
        }else this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-        
+       } 
        
         
         

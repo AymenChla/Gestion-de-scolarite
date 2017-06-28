@@ -101,6 +101,10 @@ public class DAOFactory {
     {
         return new AdministrationDaoImpl(this);
     }
+    public CompteDao getCompteDao(){
     
+    return new CompteDaoImpl(this);
+    
+    }
 
 }

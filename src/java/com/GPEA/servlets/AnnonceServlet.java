@@ -57,6 +57,25 @@ public class AnnonceServlet extends HttpServlet {
             }
             else if(session.getAttribute("sessionEtudiant") != null)
             {
+                 int page = 1;
+                int maxAnnonces=5;
+                int nbrAnnonces=0;
+                int maxPage = 0;
+                
+                if(request.getParameter("page") != null)
+                    page = Integer.parseInt(request.getParameter("page"));
+                
+                int offset = (page-1) * maxAnnonces;
+                GestionAnnonces gestionAnnonces = new GestionAnnonces(annonceDao);
+                ArrayList<Annonce> annonces = gestionAnnonces.getAnnoncesEtudiant(offset,maxAnnonces);
+                nbrAnnonces = gestionAnnonces.getNbrAnnonces();
+                maxPage = nbrAnnonces/maxAnnonces + 1;
+                
+                request.setAttribute("annonces",annonces);
+                request.setAttribute("page", page);
+                request.setAttribute("maxPage",maxPage);
+                
+               this.getServletContext().getRequestDispatcher("/WEB-INF/Etudiant/Annonce_Etud.jsp").forward(request,response);
                 
             }
             else   this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);

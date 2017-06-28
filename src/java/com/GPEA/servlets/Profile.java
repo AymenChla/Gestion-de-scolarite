@@ -27,6 +27,7 @@ public class Profile extends HttpServlet {
     private EnseignantDao   enseignantDao;
     private ModuleDao moduleDao;
     public static final String VUE_PROFILE = "/WEB-INF/Prof/Profile_Prof.jsp";
+    public static final String VUE_PROFILE_ETUDIANT = "/WEB-INF/Etudiant/Profile_Etud.jsp";
     
     public void init() throws ServletException {
         /* Récupération d'une instance de notre DAO Utilisateur */
@@ -61,6 +62,7 @@ public class Profile extends HttpServlet {
            
        }else if(session.getAttribute("sessionEtudiant") != null)
        {
+           this.getServletContext().getRequestDispatcher(VUE_PROFILE_ETUDIANT).forward(request, response);
            
        }
        else this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);

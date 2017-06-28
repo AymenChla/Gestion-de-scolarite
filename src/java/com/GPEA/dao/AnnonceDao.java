@@ -10,6 +10,7 @@ import java.util.Map;
 public interface AnnonceDao{
     
         public ArrayList<Annonce> afficherAnnonceEnseignant(int offset,int max);
+        public ArrayList<Annonce> afficherAnnonceEtudiant(int offest, int max);
         public void posterAnnonceEnseignantToFiliere(Long idEnseignant, String semester,String filiere,String toute, String titreAnnonce, String annonce);
         public ArrayList<Annonce> afficherAnnoncePoster(Long idEnseignant,int offset,int maxPostes)throws DAOException;
         public ArrayList<Filiere> afficherFilierePoster(Long idEnseignant, int offset, int maxPostes)throws DAOException;

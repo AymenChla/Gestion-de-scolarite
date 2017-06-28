@@ -32,7 +32,7 @@ public class Authentification extends HttpServlet {
 
     public static final String CONF_DAO_FACTORY = "daofactory";
     public static final String ATT_USER         = "etudiant";
-    public static final String VUE_Etudiant              = "/WEB-INF/Etudiant/Accueil_Prof.jsp";
+    public static final String VUE_Etudiant              = "/WEB-INF/Etudiant/Accueil_Etud.jsp";
     public static final String VUE_Enseignant            = "/WEB-INF/Prof/Accueil_Prof.jsp";
     
     private EtudiantDao     etudiantDao;
@@ -43,7 +43,7 @@ public class Authentification extends HttpServlet {
         /* Récupération d'une instance de notre DAO Utilisateur */
         this.etudiantDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getEtudiantDao();
         this.enseignantDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getEnseignantDao();
-          this.annonceDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getAnnonceDao();
+        this.annonceDao = ( (DAOFactory) getServletContext().getAttribute( CONF_DAO_FACTORY ) ).getAnnonceDao();
     }
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,7 +61,10 @@ public class Authentification extends HttpServlet {
             }
             else if(session.getAttribute("sessionEtudiant") != null)
             {
-                //
+                GestionAnnonces gestionAnnonces = new GestionAnnonces(annonceDao);
+                ArrayList<Annonce> annonces = gestionAnnonces.getAnnoncesEtudiant(0,2);
+                request.setAttribute("annonces",annonces);
+                this.getServletContext().getRequestDispatcher(VUE_Etudiant).forward(request, response);
             }
             else   this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
         
@@ -77,13 +80,16 @@ public class Authentification extends HttpServlet {
             String password = request.getParameter("password");
             
             
+            
+            
             GestionAuthentification authentificationForm = new GestionAuthentification(etudiantDao);
             Etudiant etudiant = authentificationForm.AuthentificateEtudiant(email,password);              
             
             if(etudiant != null){
              
                 session.setAttribute("sessionEtudiant", etudiant.getCne());
-                this.getServletContext().getRequestDispatcher(VUE_Etudiant).forward(request, response);
+                request.setAttribute("etudiant",etudiant);
+                doGet(request,response);
             }
 
             

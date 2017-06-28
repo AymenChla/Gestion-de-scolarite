@@ -108,6 +108,33 @@ public class AnnonceDaoImpl implements AnnonceDao {
         return annonce;
     }
     
+    private static final String SQL_SELECT_LES_ANNONCES_ETUDIANT = "SELECT * FROM annonce WHERE Destination = 'etudiant' ORDER BY  DATE_ANNONCE DESC limit ?,?";
+    
+    public ArrayList<Annonce> afficherAnnonceEtudiant(int offset,int max) throws DAOException {
+        
+        Connection connexion = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<Annonce> annonce = new ArrayList<Annonce>();
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_LES_ANNONCES_ETUDIANT, false, offset, max);
+            resultSet =preparedStatement.executeQuery();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            while(resultSet.next()) {
+                annonce.add(map(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(preparedStatement, connexion);
+        }
+
+        return annonce;
+    }
+    
     public static Annonce map(ResultSet resultSet) throws SQLException {
         
         Annonce annonce = new Annonce();

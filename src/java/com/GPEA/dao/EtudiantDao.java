@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public interface EtudiantDao {
 
 
-    Etudiant trouver( String email ) throws DAOException;
     
     Etudiant trouver(String email,String password) throws DAOException;
     
