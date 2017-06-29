@@ -251,20 +251,10 @@
             </div>
             <div class="pull-left info">
                 <p><c:out value="${requestScope.admin.getNomAdmin()} ${requestScope.admin.getPrenomAdmin()}" /></p>
-
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
-          <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
-          <!-- /.search form -->
+         
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
@@ -381,8 +371,19 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i>voir</a></li>
-                <li><a href="poster_annonce.html"><i class="fa fa-circle-o"></i> poster</a></li>
+                <li>
+                 <a href="#"><i class="fa fa-circle-o"></i>Voir<i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a href="PosterAdmin?page=VoirPosteProf"><i class="fa fa-circle-o"></i>enseignants</a></li>
+                    <li><a href="PosterAdmin?page=VoirPosteEtudiant"><i class="fa fa-circle-o"></i>étudiants</a></li>
+                  </ul>
+                <li>
+                    <a href="#"><i class="fa fa-circle-o"></i>Poster<i class="fa fa-angle-left pull-right"></i></a>
+                  <ul class="treeview-menu">
+                    <li><a href="PosterAdmin?page=PosterEnseignant"><i class="fa fa-circle-o"></i>enseignants</a></li>
+                    <li><a href="PosterAdmin?page=PosterEtudiant"><i class="fa fa-circle-o"></i>étudiants</a></li>
+                  </ul>
+                </li>
               </ul>
             </li>
             <li>

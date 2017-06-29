@@ -46,7 +46,7 @@ public class AnnonceServlet extends HttpServlet {
                 int offset = (page-1) * maxAnnonces;
                 GestionAnnonces gestionAnnonces = new GestionAnnonces(annonceDao);
                 ArrayList<Annonce> annonces = gestionAnnonces.getAnnonces(offset,maxAnnonces);
-                nbrAnnonces = gestionAnnonces.getNbrAnnonces();
+                nbrAnnonces = gestionAnnonces.getNbrAnnoncesEnseignants();
                 maxPage = nbrAnnonces/maxAnnonces + 1;
                 
                 request.setAttribute("annonces",annonces);
@@ -68,7 +68,7 @@ public class AnnonceServlet extends HttpServlet {
                 int offset = (page-1) * maxAnnonces;
                 GestionAnnonces gestionAnnonces = new GestionAnnonces(annonceDao);
                 ArrayList<Annonce> annonces = gestionAnnonces.getAnnoncesEtudiant(offset,maxAnnonces);
-                nbrAnnonces = gestionAnnonces.getNbrAnnonces();
+                nbrAnnonces = 10;
                 maxPage = nbrAnnonces/maxAnnonces + 1;
                 
                 request.setAttribute("annonces",annonces);

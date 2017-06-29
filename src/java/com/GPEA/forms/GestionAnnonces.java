@@ -22,9 +22,9 @@ public class GestionAnnonces {
         this.annonceDao = annonceDao;
     }
     
-    public int getNbrAnnonces()
+    public int getNbrAnnoncesEnseignants()
     {
-        return this.annonceDao.getNombreAnnonces();
+        return this.annonceDao.getNombreAnnoncesEnseignants();
     }
     
     public int getNbrPostes(Long idEnseignant)
@@ -37,9 +37,21 @@ public class GestionAnnonces {
         return this.annonceDao.afficherAnnonceEnseignant(offset,max);
         
     }
+
     public ArrayList<Annonce> getAnnoncesEtudiant(int offset,int max){
     
         return this.annonceDao.afficherAnnonceEtudiant(offset, max);
+}
+    public ArrayList<Annonce> getAnnoncesAdmintoProf(Long idAdmin){
+    
+        return this.annonceDao.getAnnoncesAdmintoProf(idAdmin);
+        
+    }
+    public ArrayList<Annonce> getAnnoncesAdmintoEtudiants(Long idAdmin){
+    
+        return this.annonceDao.getAnnoncesAdmintoEtudiants(idAdmin);
+        
+
     }
     public void setAnnonceEnseignantToFilier(Long idEnseignant, String semester,String filiere,String toute, String titreAnnonce, String annonce){
         
@@ -57,5 +69,6 @@ public class GestionAnnonces {
     
         return this.annonceDao.afficherFilierePoster(idEnseignant, offset,  maxPostes);
     }
+    
     
 }

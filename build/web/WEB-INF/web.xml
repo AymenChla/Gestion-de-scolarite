@@ -45,8 +45,14 @@
         <servlet-class>com.GPEA.servlets.GestionEtudiantServlet</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>EmploisServlet</servlet-name>
         <servlet-class>com.GPEA.servlets.EmploisServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PosterAdminServlet</servlet-name>
+        <servlet-class>com.GPEA.servlets.PosterAdminServlet</servlet-class>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>index</servlet-name>
@@ -119,6 +125,10 @@
     <servlet-mapping>
         <servlet-name>EmploisServlet</servlet-name>
         <url-pattern>/Emplois</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PosterAdminServlet</servlet-name>
+        <url-pattern>/PosterAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

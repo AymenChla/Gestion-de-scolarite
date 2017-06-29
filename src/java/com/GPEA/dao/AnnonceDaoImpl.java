@@ -26,7 +26,7 @@ public class AnnonceDaoImpl implements AnnonceDao {
     
     private static final String SQL_SELECT_NOMBRE_ANNONCE_ENSEIGNANT = "SELECT count(*) nbr FROM annonce WHERE Destination = 'enseignant'"; 
      @Override
-    public int getNombreAnnonces()throws DAOException
+    public int getNombreAnnoncesEnseignants()throws DAOException
     {
         Connection connexion = null;
         ResultSet resultSet = null;
@@ -323,6 +323,64 @@ public class AnnonceDaoImpl implements AnnonceDao {
     
         
         
+    
+    private static final String SQL_SELECT_ANNONCES_ADMIN_PROF = "SELECT * FROM annonce WHERE Destination = 'enseignant' and id_admin = ? ORDER BY  DATE_ANNONCE DESC";
+
+    /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
+    @Override
+    public ArrayList<Annonce> getAnnoncesAdmintoProf(Long idAdmin) throws DAOException {
+        
+        Connection connexion = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<Annonce> annonces = new ArrayList<Annonce>();
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ANNONCES_ADMIN_PROF, false, idAdmin);
+            resultSet =preparedStatement.executeQuery();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            while(resultSet.next()) {
+                annonces.add(map(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(preparedStatement, connexion);
+        }
+
+        return annonces;
+    }
+    
+    private static final String SQL_SELECT_ANNONCES_ADMIN_ETUDIANTS = "SELECT * FROM annonce WHERE Destination = 'etudiant' and id_admin = ? ORDER BY  DATE_ANNONCE DESC";
+
+    /* Implémentation de la méthode définie dans l'interface UtilisateurDao */
+    @Override
+    public ArrayList<Annonce> getAnnoncesAdmintoEtudiants(Long idAdmin) throws DAOException {
+        
+        Connection connexion = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement = null;
+        ArrayList<Annonce> annonces = new ArrayList<Annonce>();
+
+        try {
+            /* Récupération d'une connexion depuis la Factory */
+            connexion = daoFactory.getConnection();
+            preparedStatement = initialisationRequetePreparee(connexion, SQL_SELECT_ANNONCES_ADMIN_ETUDIANTS, false, idAdmin);
+            resultSet =preparedStatement.executeQuery();
+            /* Parcours de la ligne de données de l'éventuel ResulSet retourné */
+            while(resultSet.next()) {
+                annonces.add(map(resultSet));
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            fermeturesSilencieuses(preparedStatement, connexion);
+        }
+
+        return annonces;
+    }
     }
     
    

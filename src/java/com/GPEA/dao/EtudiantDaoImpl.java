@@ -36,9 +36,9 @@ public class EtudiantDaoImpl implements EtudiantDao {
         return etutiant;
     }
     
+
     private static final String SQL_SELECT_PAR_EMAIL_PASSWORD = "SELECT CNE, ID_SEMESTER, NOM_ETUDIANT, PRENOM_ETUDIANT, DATE_DE_NAISSANCE,EMAIL_ETUDIANT,MDP_ETUDIANT,CODE_APOGE,TEL_ETUDIANT,PHOTO_ETUDIANT,ADRESSE_ETUDIANT FROM etudiant WHERE email_etudiant = ? and mdp_etudiant = ?";
-    
-    
+
      @Override
     public Etudiant trouver(String email,String password) throws DAOException {
         
